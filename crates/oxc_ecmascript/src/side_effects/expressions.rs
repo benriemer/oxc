@@ -526,7 +526,7 @@ fn is_known_global_identifier(name: &str) -> bool {
         | "releaseEvents" | "requestAnimationFrame" | "resizeBy" | "resizeTo" | "screen"
         | "screenLeft" | "screenTop" | "screenX" | "screenY" | "scroll" | "scrollBy"
         | "scrollTo" | "scrollbars" | "self" | "speechSynthesis" | "status" | "statusbar"
-        | "stop" | "toolbar" | "top" | "webkitURL"
+        | "stop" | "toolbar" | "top" | "webkitURL" | "window"
     )
 }
 
