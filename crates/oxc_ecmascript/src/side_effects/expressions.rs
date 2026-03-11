@@ -79,8 +79,11 @@ impl<'a> MayHaveSideEffects<'a> for IdentifierReference<'a> {
             // Reading global variables may have a side effect.
             // NOTE: It should also return true when the reference might refer to a reference value created by a with statement
             // NOTE: we ignore TDZ errors
-            _ => ctx.unknown_global_side_effects() && ctx.is_global_reference(self)
-                && !is_known_global_identifier(self.name.as_str()),
+            _ => {
+                ctx.unknown_global_side_effects()
+                    && ctx.is_global_reference(self)
+                    && !is_known_global_identifier(self.name.as_str())
+            }
         }
     }
 }
@@ -349,7 +352,9 @@ fn is_known_global_constructor(name: &str) -> bool {
 
 /// Whether the name matches any known global identifier that is side-effect-free to access.
 ///
-/// This list is ported from Rolldown's `GLOBAL_IDENT` set.
+/// This list is ported from Rolldown's `GLOBAL_IDENT` set, which mirrors Rollup's `knownGlobals`.
+/// It includes browser/host-specific APIs (e.g. `document`, `window`, DOM classes) intentionally,
+/// matching Rollup's behavior of assuming these globals exist in the target environment.
 /// `NaN`, `Infinity`, `undefined` are excluded since they are already handled as special cases.
 #[rustfmt::skip]
 fn is_known_global_identifier(name: &str) -> bool {

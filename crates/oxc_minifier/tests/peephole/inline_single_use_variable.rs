@@ -350,10 +350,7 @@ fn keep_names() {
         "console.log(function foo() {}.name)",
     );
 
-    test(
-        "var x = class {}; var y = x; console.log(y.name)",
-        "console.log(class {}.name)",
-    );
+    test("var x = class {}; var y = x; console.log(y.name)", "console.log(class {}.name)");
     test_keep_names(
         "var x = class {}; var y = x; console.log(y.name)",
         "var x = class {}; console.log(x.name)",
